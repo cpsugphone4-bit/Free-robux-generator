@@ -2,15 +2,24 @@
   "version": 2,
   "builds": [
     {
-      "src": "public/**/*.html",
+      "src": "public/**/*",
       "use": "@vercel/static"
     },
     {
-      "src": "api/**/*.js",
+      "src": "api/*.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
+    },
     {
       "src": "/",
       "dest": "/public/index.html"
@@ -24,59 +33,28 @@
       "dest": "/public/error.html"
     },
     {
-      "src": "/process",
-      "dest": "/api/process.js",
-      "methods": ["POST"]
+      "src": "/style.css",
+      "dest": "/public/style.css"
     },
     {
-      "src": "/api/test",
-      "dest": "/api/test.js"
+      "src": "/script.js",
+      "dest": "/public/script.js"
     },
     {
-      "src": "/api/health",
-      "dest": "/api/health.js"
+      "src": "/robots.txt",
+      "dest": "/public/robots.txt"
     },
     {
-      "src": "/(.*\\.(css|js|png|jpg|ico|xml|txt))",
+      "src": "/sitemap.xml",
+      "dest": "/public/sitemap.xml"
+    },
+    {
+      "src": "/(.*\\.(ico|png|jpg|jpeg|gif|svg|webp))",
       "dest": "/public/$1"
     },
     {
       "src": "/(.*)",
       "dest": "/public/index.html"
     }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "geolocation=(), microphone=(), camera=()"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
