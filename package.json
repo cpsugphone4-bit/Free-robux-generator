@@ -1,0 +1,22 @@
+{
+  "name": "free-robux-generator",
+  "version": "1.0.0",
+  "description": "Free Robux Generator - Educational Purpose Only",
+  "main": "public/index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "@vercel/node": "^2.9.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "MIT",
+  "keywords": ["roblox", "robux", "educational", "security-testing"]
+}
